@@ -42,7 +42,7 @@ AFTER INSERT OR UPDATE OR DELETE on item
 
 -------------------------------------- WAP ---------------------------------
 CREATE TABLE wap_audit (
-  mac      	  varchar(17),
+  mac      	  macaddr,
   -- We need the building and the floornumber to link it to the unique floor
   building    varchar(2),  -- Abbreviation
   floornumber int

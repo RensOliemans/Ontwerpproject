@@ -28,7 +28,8 @@ CREATE TABLE wap (
   mac			macaddr,  -- mac address
   -- We need to keep the foreign key constraint since postgres doesn't propagate all constraints to children.
   -- See 5.9.1 in the documentation
-  FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber)
+  FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber),
+  PRIMARY KEY (mac)
 ) INHERITS (item);
 
 CREATE TABLE dispenser (
