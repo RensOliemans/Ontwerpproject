@@ -73,6 +73,8 @@ AFTER INSERT OR UPDATE OR DELETE on wap
   FOR EACH ROW EXECUTE PROCEDURE process_wap_audit();
   
 -------------------------------- Dispenser ----------------------------
+-- We can keep the item_audit function (and table) for dispenser, since
+-- no additional columns are added in the Dispenser child.
 CREATE TRIGGER dispenser_audit
 AFTER INSERT OR UPDATE OR DELETE on dispenser
   FOR EACH ROW EXECUTE PROCEDURE process_item_audit();
