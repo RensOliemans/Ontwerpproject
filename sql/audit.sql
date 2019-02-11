@@ -42,20 +42,11 @@ AFTER INSERT OR UPDATE OR DELETE on item
 
 -------------------------------------- WAP ---------------------------------
 CREATE TABLE wap_audit (
-  operation   char(1)   NOT NULL,
-  stamp       timestamp NOT NULL,
-  userid      text      NOT NULL,
-  type        text,
-  location    point,
-  startdate   date,
-  enddate     date,
-  remarks     text,
   mac      	  varchar(17),
-  filename    text,  -- Filename of the icon
   -- We need the building and the floornumber to link it to the unique floor
   building    varchar(2),  -- Abbreviation
   floornumber int
-);
+) INHERITS (item_audit) ;
 
 CREATE OR REPLACE FUNCTION process_wap_audit() RETURNS TRIGGER AS $wap_audit$
   BEGIN
@@ -80,3 +71,8 @@ $wap_audit$ LANGUAGE plpgsql;
 CREATE TRIGGER wap_audit
 AFTER INSERT OR UPDATE OR DELETE on wap
   FOR EACH ROW EXECUTE PROCEDURE process_wap_audit();
+  
+-------------------------------- Dispenser ----------------------------
+CREATE TRIGGER dispenser_audit
+AFTER INSERT OR UPDATE OR DELETE on dispenser
+  FOR EACH ROW EXECUTE PROCEDURE process_item_audit();

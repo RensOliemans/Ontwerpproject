@@ -6,16 +6,16 @@ CREATE TABLE building (
 
 CREATE TABLE floor (
   building      varchar(2) REFERENCES building(abbreviation),
-  floornumber		int        NOT NULL,
+  floornumber	int        NOT NULL,
   PRIMARY KEY (building, floornumber)  -- Every building/floor combination is unique
 );
 
 CREATE TABLE item (
-  type			  text,
+  type			text,
   location		point,
   startdate		date,
-  enddate			date,
-  remarks			text,
+  enddate		date,
+  remarks		text,
   filename		text,  -- Filename of the icon
   -- We need the building and the floornumber to link it to the unique floor
   building		varchar(2),  -- Abbreviation
@@ -25,7 +25,7 @@ CREATE TABLE item (
 
 CREATE TABLE wap (
   type			text DEFAULT 'WAP',
-  mac				varchar(17),  -- mac address
+  mac			macaddr,  -- mac address
   -- We need to keep the foreign key constraint since postgres doesn't propagate all constraints to children.
   -- See 5.9.1 in the documentation
   FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber)
