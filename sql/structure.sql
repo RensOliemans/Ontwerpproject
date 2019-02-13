@@ -20,16 +20,16 @@ CREATE TABLE item (
 	-- We need the building and the floornumber to link it to the unique floor
 	building		varchar(2),  -- Abbreviation
 	floornumber	int,
-	FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber)
+	FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber),
+	PRIMARY KEY (building, floornumber, location)
 );
 
 CREATE TABLE wap (
 	type			text DEFAULT 'WAP',
-	mac				macaddr,  -- mac address
+	mac				macaddr UNIQUE,  -- mac address
 	-- We need to keep the foreign key constraint since postgres doesn't propagate all constraints to children.
 	-- See 5.9.1 in the documentation
 	FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber),
-	PRIMARY KEY (mac)
 ) INHERITS (item);
 
 CREATE TABLE dispenser (
