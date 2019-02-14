@@ -12,6 +12,7 @@ CREATE TABLE floor (
 
 CREATE TABLE item (
 	type			text,
+	item_id			serial,
 	location		point,
 	startdate		date,
 	enddate			date,
@@ -21,7 +22,7 @@ CREATE TABLE item (
 	building		varchar(2),  -- Abbreviation
 	floornumber	int,
 	FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber),
-	PRIMARY KEY (building, floornumber, location)
+	PRIMARY KEY (item_id)
 );
 
 CREATE TABLE wap (
@@ -29,7 +30,7 @@ CREATE TABLE wap (
 	mac				macaddr UNIQUE,  -- mac address
 	-- We need to keep the foreign key constraint since postgres doesn't propagate all constraints to children.
 	-- See 5.9.1 in the documentation
-	FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber),
+	FOREIGN KEY (building, floornumber) REFERENCES floor (building, floornumber)
 ) INHERITS (item);
 
 CREATE TABLE dispenser (

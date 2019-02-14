@@ -6,6 +6,7 @@ CREATE TABLE item_audit (
 	stamp       timestamp NOT NULL,
 	userid      text      NOT NULL,
 	type        text,
+	item_id		serial,
 	location    point,
 	startdate   date,
 	enddate     date,
